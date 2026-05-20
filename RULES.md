@@ -214,3 +214,22 @@ NOT:
 
 * a school project
 * a viewer prototype
+
+---
+
+# Emotional UX Rule
+
+The UI must optimize for:
+
+* trust
+* aspiration
+* premium feel
+* emotional engagement
+
+NOT just information display.
+
+Users should feel:
+"I want to live there."
+
+NOT:
+"This is a software demo."
