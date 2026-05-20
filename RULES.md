@@ -1,4 +1,4 @@
-# PROJECT RULES — VTour
+# PROJECT RULES — VirTour
 
 ## 🎯 Product Vision
 
