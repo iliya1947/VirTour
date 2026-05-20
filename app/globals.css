@@ -13,3 +13,24 @@ body {
 .glass {
   @apply border border-white/10 bg-white/10 backdrop-blur-xl;
 }
+
+@keyframes floatSoft {
+  0%,
+  100% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes floatSlow {
+  0%,
+  100% { transform: translateY(0px); }
+  50% { transform: translateY(12px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float-soft { animation: floatSoft 8s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 11s ease-in-out infinite; }
+.animate-fade-up { animation: fadeUp 700ms ease-out both; }
