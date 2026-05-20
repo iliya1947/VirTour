@@ -12,6 +12,11 @@ export const homeCopy: Record<Locale, {
   secondaryCta: string;
   searchPlaceholder: string;
   whatsappLabel: string;
+  searchHint: string;
+  categories: string[];
+  quickFilters: string[];
+  discoverSections: { key: string; title: string; subtitle: string }[];
+  trustSignals: string[];
 }> = {
   he: {
     nav: ['נכסים מובילים', 'ערים מובילות', 'סיורי 360°', 'למה VirTour'],
@@ -20,7 +25,16 @@ export const homeCopy: Record<Locale, {
     primaryCta: 'צפו בנכסים עכשיו',
     secondaryCta: 'סיור 360° לדוגמה',
     searchPlaceholder: 'חפשו לפי עיר, שכונה או פרויקט...',
-    whatsappLabel: 'שיחה ב-WhatsApp'
+    whatsappLabel: 'שיחה ב-WhatsApp',
+    searchHint: 'חיפוש מהיר: עיר, תקציב, חדרים או מילות מפתח.',
+    categories: ['יוקרה', 'משפחות', 'נוף לים', 'פנטהאוז', 'פרויקטים חדשים', 'השקעה'],
+    quickFilters: ['עד ₪2M', 'תל אביב', 'מתאים לחיות מחמד', '3 חדרים', 'נוף לים'],
+    discoverSections: [
+      { key: 'trending', title: 'חם עכשיו', subtitle: 'נכסים עם הכי הרבה צפיות השבוע' },
+      { key: 'recent', title: 'נוספו לאחרונה', subtitle: 'פרסומים חדשים מהימים האחרונים' },
+      { key: 'tour360', title: 'כולל סיור 360°', subtitle: 'ביקור וירטואלי מלא לפני תיאום פגישה' }
+    ],
+    trustSignals: ['נכסים מאומתים', 'סוכנים אמינים', 'יצירת קשר מאובטחת', 'תמיכה רב-לשונית']
   },
   en: {
     nav: ['Featured', 'Cities', '360° Tours', 'Why VirTour'],
@@ -29,7 +43,16 @@ export const homeCopy: Record<Locale, {
     primaryCta: 'Browse Listings',
     secondaryCta: 'Watch 360° Demo',
     searchPlaceholder: 'Search by city, neighborhood, or project...',
-    whatsappLabel: 'Chat on WhatsApp'
+    whatsappLabel: 'Chat on WhatsApp',
+    searchHint: 'Quick search: city, budget, rooms, or keyword.',
+    categories: ['Luxury', 'Family', 'Sea View', 'Penthouse', 'New Projects', 'Investment'],
+    quickFilters: ['Under ₪2M', 'Tel Aviv', 'Pet Friendly', '3 Rooms', 'Sea View'],
+    discoverSections: [
+      { key: 'trending', title: 'Trending now', subtitle: 'Most viewed listings this week' },
+      { key: 'recent', title: 'Recently added', subtitle: 'Fresh listings added in the past days' },
+      { key: 'tour360', title: '360 Tour Available', subtitle: 'Explore remotely before booking a visit' }
+    ],
+    trustSignals: ['Verified listings', 'Trusted agents', 'Secure contact', 'Multilingual support']
   },
   ru: {
     nav: ['Избранное', 'Города', '360° туры', 'Почему VirTour'],
@@ -38,6 +61,15 @@ export const homeCopy: Record<Locale, {
     primaryCta: 'Смотреть объекты',
     secondaryCta: 'Демо 360° тура',
     searchPlaceholder: 'Поиск по городу, району или проекту...',
-    whatsappLabel: 'Написать в WhatsApp'
+    whatsappLabel: 'Написать в WhatsApp',
+    searchHint: 'Быстрый поиск: город, бюджет, комнаты или ключевое слово.',
+    categories: ['Люкс', 'Семейные', 'Вид на море', 'Пентхаус', 'Новые проекты', 'Инвестиции'],
+    quickFilters: ['До ₪2M', 'Тель-Авив', 'Можно с питомцами', '3 комнаты', 'Вид на море'],
+    discoverSections: [
+      { key: 'trending', title: 'Сейчас в тренде', subtitle: 'Самые просматриваемые объекты за неделю' },
+      { key: 'recent', title: 'Недавно добавленные', subtitle: 'Новые предложения за последние дни' },
+      { key: 'tour360', title: 'Доступен 360° тур', subtitle: 'Осмотрите объект онлайн до личного визита' }
+    ],
+    trustSignals: ['Проверенные объекты', 'Надёжные агенты', 'Безопасный контакт', 'Мультиязычная поддержка']
   }
 };
