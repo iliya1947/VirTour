@@ -1,17 +1,21 @@
+export type ListingBadge = 'NEW' | 'HOT' | 'VERIFIED';
+export type CityId = 'telAviv' | 'jerusalem' | 'haifa' | 'netanya';
+export type FeaturedListingId = 'seaViewPenthouse' | 'jerusalemStoneVilla' | 'carmelHorizonApartment';
+
 export type Listing = {
-  title: string;
-  city: string;
+  id: FeaturedListingId;
+  cityId: CityId;
   price: string;
   rooms: number;
   area: number;
   image: string;
-  badges: ('NEW' | 'HOT' | 'VERIFIED')[];
+  badges: ListingBadge[];
 };
 
 export const featuredListings: Listing[] = [
   {
-    title: 'Sea View Penthouse with Skyline Terrace',
-    city: 'Tel Aviv',
+    id: 'seaViewPenthouse',
+    cityId: 'telAviv',
     price: '₪12,400,000',
     rooms: 6,
     area: 280,
@@ -19,8 +23,8 @@ export const featuredListings: Listing[] = [
     badges: ['HOT', 'VERIFIED']
   },
   {
-    title: 'Jerusalem Stone Villa near the Old City',
-    city: 'Jerusalem',
+    id: 'jerusalemStoneVilla',
+    cityId: 'jerusalem',
     price: '₪9,800,000',
     rooms: 7,
     area: 340,
@@ -28,8 +32,8 @@ export const featuredListings: Listing[] = [
     badges: ['NEW', 'VERIFIED']
   },
   {
-    title: 'Carmel Horizon Designer Apartment',
-    city: 'Haifa',
+    id: 'carmelHorizonApartment',
+    cityId: 'haifa',
     price: '₪4,350,000',
     rooms: 4,
     area: 170,
@@ -38,4 +42,4 @@ export const featuredListings: Listing[] = [
   }
 ];
 
-export const cities = ['Tel Aviv', 'Jerusalem', 'Haifa', 'Netanya'];
+export const cityIds: CityId[] = ['telAviv', 'jerusalem', 'haifa', 'netanya'];

@@ -1,0 +1,24 @@
+{
+  "badges": {
+    "NEW": "חדש",
+    "HOT": "חם",
+    "VERIFIED": "מאומת"
+  },
+  "cities": {
+    "telAviv": "תל אביב",
+    "jerusalem": "ירושלים",
+    "haifa": "חיפה",
+    "netanya": "נתניה"
+  },
+  "featured": {
+    "seaViewPenthouse": {
+      "title": "פנטהאוז עם נוף לים ומרפסת קו רקיע"
+    },
+    "jerusalemStoneVilla": {
+      "title": "וילה ירושלמית מאבן ליד העיר העתיקה"
+    },
+    "carmelHorizonApartment": {
+      "title": "דירת מעצבים כרמל הורייזון"
+    }
+  }
+}

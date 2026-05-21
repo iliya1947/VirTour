@@ -1,0 +1,31 @@
+{
+  "metaTitle": "VirTour | Premium Israeli Real Estate with 360° Tours",
+  "metaDescription": "Discover luxury properties in Israel with immersive 360° tours, verified agents, and premium discovery.",
+  "nav": {
+    "featured": "Featured Listings",
+    "cities": "Cities",
+    "tours": "360° Tours",
+    "why": "Why VirTour"
+  },
+  "hero": {
+    "eyebrow": "Premium Israeli Real Estate",
+    "title": "Discover your next home in Israel before you even arrive",
+    "subtitle": "VirTour blends premium real estate discovery with immersive 360° virtual tours for buyers and investors.",
+    "searchPlaceholder": "Search by city, neighborhood, or project...",
+    "searchButton": "Browse Listings",
+    "primaryCta": "Browse Listings",
+    "secondaryCta": "Watch 360° Demo"
+  },
+  "sections": {
+    "featuredListingsTitle": "Featured Listings",
+    "browseByCityTitle": "Browse by City",
+    "tourTitle": "Explore properties in 360°",
+    "tourDescription": "Step through every room, understand every detail, and shortlist properties with confidence before in-person visits.",
+    "tourButton": "Start a demo tour"
+  },
+  "features": {
+    "verifiedAgents": "Verified agents",
+    "secureCommunication": "Secure communication",
+    "immersiveViewing": "Immersive viewing"
+  }
+}
