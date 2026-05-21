@@ -1,24 +1,46 @@
 {
   "badges": {
-    "NEW": "חדש",
-    "HOT": "חם",
-    "VERIFIED": "מאומת"
+    "VERIFIED_AGENT": "סוכן מאומת",
+    "TOUR_360": "סיור 360 זמין",
+    "LISTED_TODAY": "פורסם היום",
+    "PREMIUM": "נכס פרימיום"
+  },
+  "discovery": {
+    "RECENTLY_ADDED": "נוספו לאחרונה",
+    "TRENDING": "במגמת עלייה",
+    "RECOMMENDED": "מומלץ עבורך"
+  },
+  "meta": {
+    "photos": "{count} תמונות",
+    "tour": "360°",
+    "save": "שמירת נכס"
   },
   "cities": {
     "telAviv": "תל אביב",
     "jerusalem": "ירושלים",
     "haifa": "חיפה",
-    "netanya": "נתניה"
+    "netanya": "נתניה",
+    "herzliya": "הרצליה",
+    "raanana": "רעננה"
   },
   "featured": {
-    "seaViewPenthouse": {
-      "title": "פנטהאוז עם נוף לים ומרפסת קו רקיע"
+    "telAvivSkylinePenthouse": {
+      "title": "פנטהאוז קו הרקיע של תל אביב"
     },
-    "jerusalemStoneVilla": {
-      "title": "וילה ירושלמית מאבן ליד העיר העתיקה"
+    "herzliyaMarinaResidence": {
+      "title": "דירת נוף לים במרינה הרצליה"
     },
-    "carmelHorizonApartment": {
-      "title": "דירת מעצבים כרמל הורייזון"
+    "jerusalemFamilyResidence": {
+      "title": "בית משפחתי מאבן בירושלים"
+    },
+    "haifaCarmelViewLoft": {
+      "title": "לופט מעוצב עם נוף לכרמל בחיפה"
+    },
+    "netanyaBeachfrontSuite": {
+      "title": "סוויטת פנורמה על קו החוף בנתניה"
+    },
+    "raananaGardenDuplex": {
+      "title": "דופלקס גן יוקרתי ברעננה"
     }
   }
 }

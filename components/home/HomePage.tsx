@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { cityIds, featuredListings } from '@/data/listings';
+import { cityIds, featuredListings, type DiscoveryTag } from '@/data/listings';
 import { getI18n, Locale } from '@/lib/i18n';
 import { StickyHeader } from '@/components/layout/StickyHeader';
 
@@ -34,24 +34,67 @@ export function HomePage({ locale }: Props) {
       </section>
 
       <section className="mx-auto mt-16 w-[94%] max-w-7xl space-y-8">
-        <h2 className="text-3xl font-semibold md:text-4xl">{t('homepage', 'sections.featuredListingsTitle')}</h2>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h2 className="text-3xl font-semibold md:text-4xl">{t('homepage', 'sections.featuredListingsTitle')}</h2>
+          <div className="flex flex-wrap gap-2">
+            {(['RECENTLY_ADDED', 'TRENDING', 'RECOMMENDED'] as DiscoveryTag[]).map((tag) => (
+              <button
+                key={tag}
+                className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wide text-white/90 transition hover:border-cyan-300/60 hover:bg-cyan-400/10"
+              >
+                {t('listings', `discovery.${tag}`)}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {featuredListings.map((listing) => (
-            <article key={listing.id} className="group relative overflow-hidden rounded-3xl border border-white/10 bg-ink/70 shadow-glow transition duration-500 hover:-translate-y-1 hover:scale-[1.015]">
-              <div className="relative h-72">
+            <article
+              key={listing.id}
+              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-ink/70 shadow-[0_14px_34px_rgba(2,10,36,0.45)] transition duration-500 hover:-translate-y-1.5 hover:border-cyan-300/50 hover:shadow-[0_20px_60px_rgba(34,211,238,0.2)]"
+            >
+              <div className="relative h-80 sm:h-96">
                 <Image src={listing.image} alt={t('listings', `featured.${listing.id}.title`)} fill className="object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                <div className="absolute left-4 right-4 top-4 flex flex-wrap gap-2">
-                  {listing.badges.map((badge) => <span key={badge} className="rounded-full bg-white/20 px-2.5 py-1 text-xs font-semibold">{t('listings', `badges.${badge}`)}</span>)}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/5" />
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 to-transparent" />
+
+                <div className="absolute inset-x-4 top-4 flex items-start justify-between gap-3">
+                  <div className="flex max-w-[80%] flex-wrap gap-2">
+                    {listing.badges.map((badge) => (
+                      <span key={badge} className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-[11px] font-semibold backdrop-blur-md">
+                        {t('listings', `badges.${badge}`)}
+                      </span>
+                    ))}
+                  </div>
+                  <button
+                    aria-label={t('listings', 'meta.save')}
+                    className="grid h-10 w-10 place-items-center rounded-full border border-white/30 bg-black/35 text-lg text-white/95 backdrop-blur-md transition hover:scale-105 hover:bg-white/20"
+                  >
+                    ♡
+                  </button>
                 </div>
-                <div className="absolute bottom-4 left-4 right-4 space-y-2">
-                  <h3 className="text-xl font-semibold">{t('listings', `featured.${listing.id}.title`)}</h3>
-                  <p className="text-sm text-white/80">{t('listings', `cities.${listing.cityId}`)}</p>
+
+                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+                  <div>
+                    <p className="text-2xl font-bold text-cyan-300 sm:text-3xl">{listing.price}</p>
+                    <h3 className="mt-1 text-xl font-semibold leading-tight">{t('listings', `featured.${listing.id}.title`)}</h3>
+                    <p className="mt-1 text-sm text-white/80">{t('listings', `cities.${listing.cityId}`)} · {listing.neighborhood}</p>
+                    <p className="mt-2 text-sm text-white/85">{t('common', 'featureRoomsArea', { rooms: listing.rooms, area: listing.area })}</p>
+                  </div>
+                  <div className="space-y-2 text-end text-xs">
+                    <p className="rounded-full border border-white/20 bg-black/35 px-3 py-1.5 backdrop-blur-md">{t('listings', 'meta.photos', { count: listing.imageCount })}</p>
+                    <p className="rounded-full border border-cyan-300/30 bg-cyan-400/10 px-3 py-1.5 text-cyan-100 backdrop-blur-md">{t('listings', 'meta.tour')}</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center justify-between p-5">
-                <p className="text-xl font-semibold text-cyan-300">{listing.price}</p>
-                <p className="text-sm text-white/70">{t('common', 'featureRoomsArea', { rooms: listing.rooms, area: listing.area })}</p>
+
+              <div className="flex flex-wrap gap-2 p-4 sm:p-5">
+                {listing.discoveryTags.map((tag) => (
+                  <span key={tag} className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/90">
+                    {t('listings', `discovery.${tag}`)}
+                  </span>
+                ))}
               </div>
             </article>
           ))}
