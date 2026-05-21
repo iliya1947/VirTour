@@ -233,3 +233,18 @@ Users should feel:
 
 NOT:
 "This is a software demo."
+
+---
+
+# Localization Integrity Rule
+
+Hardcoded UI strings are forbidden.
+
+ALL visible UI text must:
+
+come from translation dictionaries
+support he/en/ru
+preserve RTL compatibility
+
+Before finalizing any UI:
+verify translation completeness.
