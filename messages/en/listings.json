@@ -1,24 +1,46 @@
 {
   "badges": {
-    "NEW": "New",
-    "HOT": "Hot",
-    "VERIFIED": "Verified"
+    "VERIFIED_AGENT": "Verified Agent",
+    "TOUR_360": "360 Tour Available",
+    "LISTED_TODAY": "Listed Today",
+    "PREMIUM": "Premium Property"
+  },
+  "discovery": {
+    "RECENTLY_ADDED": "Recently Added",
+    "TRENDING": "Trending",
+    "RECOMMENDED": "Recommended"
+  },
+  "meta": {
+    "photos": "{count} photos",
+    "tour": "360°",
+    "save": "Save listing"
   },
   "cities": {
     "telAviv": "Tel Aviv",
     "jerusalem": "Jerusalem",
     "haifa": "Haifa",
-    "netanya": "Netanya"
+    "netanya": "Netanya",
+    "herzliya": "Herzliya",
+    "raanana": "Ra'anana"
   },
   "featured": {
-    "seaViewPenthouse": {
-      "title": "Sea View Penthouse with Skyline Terrace"
+    "telAvivSkylinePenthouse": {
+      "title": "Tel Aviv Skyline Penthouse"
     },
-    "jerusalemStoneVilla": {
-      "title": "Jerusalem Stone Villa near the Old City"
+    "herzliyaMarinaResidence": {
+      "title": "Herzliya Marina Sea View Residence"
     },
-    "carmelHorizonApartment": {
-      "title": "Carmel Horizon Designer Apartment"
+    "jerusalemFamilyResidence": {
+      "title": "Jerusalem Family Stone Residence"
+    },
+    "haifaCarmelViewLoft": {
+      "title": "Haifa Carmel View Designer Loft"
+    },
+    "netanyaBeachfrontSuite": {
+      "title": "Netanya Beachfront Panorama Suite"
+    },
+    "raananaGardenDuplex": {
+      "title": "Ra'anana Garden Duplex Retreat"
     }
   }
 }
