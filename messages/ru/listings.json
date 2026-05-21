@@ -1,0 +1,24 @@
+{
+  "badges": {
+    "NEW": "Новое",
+    "HOT": "Хит",
+    "VERIFIED": "Проверено"
+  },
+  "cities": {
+    "telAviv": "Тель-Авив",
+    "jerusalem": "Иерусалим",
+    "haifa": "Хайфа",
+    "netanya": "Нетания"
+  },
+  "featured": {
+    "seaViewPenthouse": {
+      "title": "Пентхаус с видом на море и панорамной террасой"
+    },
+    "jerusalemStoneVilla": {
+      "title": "Иерусалимская вилла из камня рядом со Старым городом"
+    },
+    "carmelHorizonApartment": {
+      "title": "Дизайнерские апартаменты Carmel Horizon"
+    }
+  }
+}

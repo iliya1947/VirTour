@@ -1,0 +1,24 @@
+{
+  "badges": {
+    "NEW": "New",
+    "HOT": "Hot",
+    "VERIFIED": "Verified"
+  },
+  "cities": {
+    "telAviv": "Tel Aviv",
+    "jerusalem": "Jerusalem",
+    "haifa": "Haifa",
+    "netanya": "Netanya"
+  },
+  "featured": {
+    "seaViewPenthouse": {
+      "title": "Sea View Penthouse with Skyline Terrace"
+    },
+    "jerusalemStoneVilla": {
+      "title": "Jerusalem Stone Villa near the Old City"
+    },
+    "carmelHorizonApartment": {
+      "title": "Carmel Horizon Designer Apartment"
+    }
+  }
+}
