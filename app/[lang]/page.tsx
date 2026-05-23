@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { HomePage } from '@/components/home/HomePage';
-import { getI18n, isRtl, locales, type Locale } from '@/lib/i18n';
+import { getI18n, locales, type Locale } from '@/lib/i18n';
 
 type Props = { params: { lang: string } };
 
@@ -31,9 +31,5 @@ export default function LangHome({ params }: Props) {
     notFound();
   }
 
-  return (
-    <div lang={locale} dir={isRtl(locale) ? 'rtl' : 'ltr'}>
-      <HomePage locale={locale} />
-    </div>
-  );
+  return <HomePage locale={locale} />;
 }
