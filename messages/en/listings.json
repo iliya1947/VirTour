@@ -13,7 +13,8 @@
   "meta": {
     "photos": "{count} photos",
     "tour": "360°",
-    "save": "Save listing"
+    "save": "Save listing",
+    "viewListing": "View Listing"
   },
   "cities": {
     "telAviv": "Tel Aviv",
@@ -23,24 +24,17 @@
     "herzliya": "Herzliya",
     "raanana": "Ra'anana"
   },
-  "featured": {
-    "telAvivSkylinePenthouse": {
-      "title": "Tel Aviv Skyline Penthouse"
-    },
-    "herzliyaMarinaResidence": {
-      "title": "Herzliya Marina Sea View Residence"
-    },
-    "jerusalemFamilyResidence": {
-      "title": "Jerusalem Family Stone Residence"
-    },
-    "haifaCarmelViewLoft": {
-      "title": "Haifa Carmel View Designer Loft"
-    },
-    "netanyaBeachfrontSuite": {
-      "title": "Netanya Beachfront Panorama Suite"
-    },
-    "raananaGardenDuplex": {
-      "title": "Ra'anana Garden Duplex Retreat"
-    }
+  "listingPage": {
+    "rooms": "rooms",
+    "bathrooms": "bathrooms",
+    "sqm": "sqm",
+    "features": "Features",
+    "agent": "Listing Agent",
+    "whatsapp": "WhatsApp",
+    "call": "Call",
+    "tourTitle": "Explore in 360°",
+    "tourDescription": "Experience this property in an immersive virtual walkthrough.",
+    "tourCta": "Start 360 Tour",
+    "related": "Related Properties"
   }
 }
