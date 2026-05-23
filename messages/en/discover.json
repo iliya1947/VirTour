@@ -1,0 +1,16 @@
+{
+  "metaTitle": "Map-first discovery | VirTour",
+  "metaDescription": "Explore premium listings through a connected list + map experience.",
+  "eyebrow": "Map-first discovery",
+  "title": "Explore homes spatially",
+  "results": "homes",
+  "tabs": { "list": "List", "map": "Map" },
+  "filters": {
+    "price": "Price",
+    "rooms": "Rooms",
+    "seaView": "Sea View",
+    "luxury": "Luxury",
+    "tour360": "360 Available"
+  },
+  "preview": { "cta": "Open Listing" }
+}

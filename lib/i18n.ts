@@ -1,20 +1,23 @@
 import heCommon from '@/messages/he/common.json';
 import heHomepage from '@/messages/he/homepage.json';
 import heListings from '@/messages/he/listings.json';
+import heDiscover from '@/messages/he/discover.json';
 import enCommon from '@/messages/en/common.json';
 import enHomepage from '@/messages/en/homepage.json';
 import enListings from '@/messages/en/listings.json';
+import enDiscover from '@/messages/en/discover.json';
 import ruCommon from '@/messages/ru/common.json';
 import ruHomepage from '@/messages/ru/homepage.json';
 import ruListings from '@/messages/ru/listings.json';
+import ruDiscover from '@/messages/ru/discover.json';
 
 export const locales = ['he', 'en', 'ru'] as const;
 export type Locale = (typeof locales)[number];
 
 const dictionaries = {
-  he: { common: heCommon, homepage: heHomepage, listings: heListings },
-  en: { common: enCommon, homepage: enHomepage, listings: enListings },
-  ru: { common: ruCommon, homepage: ruHomepage, listings: ruListings }
+  he: { common: heCommon, homepage: heHomepage, listings: heListings, discover: heDiscover },
+  en: { common: enCommon, homepage: enHomepage, listings: enListings, discover: enDiscover },
+  ru: { common: ruCommon, homepage: ruHomepage, listings: ruListings, discover: ruDiscover }
 } as const;
 
 type Dictionaries = typeof dictionaries;
