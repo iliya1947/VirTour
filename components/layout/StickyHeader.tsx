@@ -17,6 +17,7 @@ export function StickyHeader({ locale }: Props) {
     <header className="glass sticky top-3 z-50 mx-auto flex w-[94%] max-w-7xl items-center justify-between rounded-2xl px-4 py-3 shadow-glow transition-all duration-300 md:px-6">
       <Link href={`/${locale}`} className="text-lg font-semibold tracking-wide">{t('common', 'brandName')}</Link>
       <nav className="hidden items-center gap-6 text-sm text-white/80 md:flex">
+        <Link href={`/${locale}/discover`} className="rounded-full border border-cyan-300/30 bg-cyan-300/15 px-3 py-1 text-cyan-100 transition hover:bg-cyan-300/25">Map Discovery</Link>
         {navItems.map((item) => (
           <a key={item} href="#" className="transition hover:text-white">{item}</a>
         ))}
