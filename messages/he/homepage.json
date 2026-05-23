@@ -21,11 +21,24 @@
     "browseByCityTitle": "חיפוש לפי עיר",
     "tourTitle": "גלו נכסים בסיור 360°",
     "tourDescription": "היכנסו לכל חדר, הבינו כל פרט, ובנו רשימה חכמה של נכסים עוד לפני ביקור פיזי.",
-    "tourButton": "התחילו סיור דמו"
+    "tourButton": "התחילו סיור דמו",
+    "collectionsTitle": "אוספים נבחרים",
+    "trendingNow": "חם עכשיו",
+    "recentlyAdded": "נוסף לאחרונה",
+    "curatedHomes": "בתים נבחרים",
+    "activeListings": "נכסים פעילים"
   },
   "features": {
     "verifiedAgents": "סוכנים מאומתים",
     "secureCommunication": "תקשורת מאובטחת",
     "immersiveViewing": "צפייה אימרסיבית"
+  },
+  "collections": {
+    "SEA_VIEW": "נכסים עם נוף לים",
+    "LUXURY": "קולקציית יוקרה",
+    "INVESTMENT": "הזדמנויות השקעה",
+    "FAMILY": "בתים למשפחה",
+    "URBAN": "חיים אורבניים",
+    "TEL_AVIV_PREMIUM": "תל אביב פרימיום"
   }
 }

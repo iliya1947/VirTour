@@ -21,11 +21,24 @@
     "browseByCityTitle": "Browse by City",
     "tourTitle": "Explore properties in 360°",
     "tourDescription": "Step through every room, understand every detail, and shortlist properties with confidence before in-person visits.",
-    "tourButton": "Start a demo tour"
+    "tourButton": "Start a demo tour",
+    "collectionsTitle": "Featured Collections",
+    "trendingNow": "Trending Now",
+    "recentlyAdded": "Recently Added",
+    "curatedHomes": "curated homes",
+    "activeListings": "active listings"
   },
   "features": {
     "verifiedAgents": "Verified agents",
     "secureCommunication": "Secure communication",
     "immersiveViewing": "Immersive viewing"
+  },
+  "collections": {
+    "SEA_VIEW": "Sea View Properties",
+    "LUXURY": "Luxury Collection",
+    "INVESTMENT": "Investment Opportunities",
+    "FAMILY": "Family Homes",
+    "URBAN": "Urban Living",
+    "TEL_AVIV_PREMIUM": "Premium Tel Aviv"
   }
 }

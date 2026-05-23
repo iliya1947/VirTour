@@ -3,6 +3,14 @@ export type Locale = 'he' | 'en' | 'ru';
 export type ListingBadge = 'VERIFIED_AGENT' | 'TOUR_360' | 'LISTED_TODAY' | 'PREMIUM';
 export type DiscoveryTag = 'RECENTLY_ADDED' | 'TRENDING' | 'RECOMMENDED';
 
+export type CollectionId =
+  | 'SEA_VIEW'
+  | 'LUXURY'
+  | 'INVESTMENT'
+  | 'FAMILY'
+  | 'URBAN'
+  | 'TEL_AVIV_PREMIUM';
+
 export type ListingTranslation = {
   locale: Locale;
   title: string;
@@ -43,5 +51,15 @@ export type Listing = {
   coordinates: { lat: number; lng: number };
   badges: ListingBadge[];
   discoveryTags: DiscoveryTag[];
+  viewsToday: number;
+  totalViews: number;
+  savedCount: number;
+  responseTime: string;
   translations: Partial<Record<Locale, Omit<ListingTranslation, 'locale'>>>;
+};
+
+export type DiscoveryCollection = {
+  id: CollectionId;
+  coverImage: string;
+  listingSlugs: string[];
 };

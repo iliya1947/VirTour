@@ -34,6 +34,10 @@ export const telAvivPenthouse: Listing = {
   coordinates: { lat: 32.0837, lng: 34.7872 },
   badges: ['VERIFIED_AGENT', 'TOUR_360', 'PREMIUM'],
   discoveryTags: ['TRENDING', 'RECOMMENDED'],
+  viewsToday: 12,
+  totalViews: 184,
+  savedCount: 29,
+  responseTime: 'within 10 minutes',
   translations: {
     he: {
       title: 'פנטהאוז קו הרקיע של תל אביב',
