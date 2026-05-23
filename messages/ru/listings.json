@@ -1,24 +1,40 @@
 {
   "badges": {
-    "NEW": "Новое",
-    "HOT": "Хит",
-    "VERIFIED": "Проверено"
+    "VERIFIED_AGENT": "Проверенный агент",
+    "TOUR_360": "Доступен 360-тур",
+    "LISTED_TODAY": "Опубликовано сегодня",
+    "PREMIUM": "Премиум объект"
+  },
+  "discovery": {
+    "RECENTLY_ADDED": "Недавно добавлено",
+    "TRENDING": "В тренде",
+    "RECOMMENDED": "Рекомендуем"
+  },
+  "meta": {
+    "photos": "{count} фото",
+    "tour": "360°",
+    "save": "Сохранить",
+    "viewListing": "Смотреть объект"
   },
   "cities": {
     "telAviv": "Тель-Авив",
     "jerusalem": "Иерусалим",
     "haifa": "Хайфа",
-    "netanya": "Нетания"
+    "netanya": "Нетания",
+    "herzliya": "Герцлия",
+    "raanana": "Раанана"
   },
-  "featured": {
-    "seaViewPenthouse": {
-      "title": "Пентхаус с видом на море и панорамной террасой"
-    },
-    "jerusalemStoneVilla": {
-      "title": "Иерусалимская вилла из камня рядом со Старым городом"
-    },
-    "carmelHorizonApartment": {
-      "title": "Дизайнерские апартаменты Carmel Horizon"
-    }
+  "listingPage": {
+    "rooms": "комнат",
+    "bathrooms": "санузла",
+    "sqm": "м²",
+    "features": "Особенности",
+    "agent": "Агент объекта",
+    "whatsapp": "WhatsApp",
+    "call": "Позвонить",
+    "tourTitle": "Исследуйте в 360°",
+    "tourDescription": "Погрузитесь в объект через иммерсивный виртуальный тур.",
+    "tourCta": "Запустить 360-тур",
+    "related": "Похожие объекты"
   }
 }

@@ -13,7 +13,8 @@
   "meta": {
     "photos": "{count} תמונות",
     "tour": "360°",
-    "save": "שמירת נכס"
+    "save": "שמירת נכס",
+    "viewListing": "צפייה בנכס"
   },
   "cities": {
     "telAviv": "תל אביב",
@@ -23,24 +24,17 @@
     "herzliya": "הרצליה",
     "raanana": "רעננה"
   },
-  "featured": {
-    "telAvivSkylinePenthouse": {
-      "title": "פנטהאוז קו הרקיע של תל אביב"
-    },
-    "herzliyaMarinaResidence": {
-      "title": "דירת נוף לים במרינה הרצליה"
-    },
-    "jerusalemFamilyResidence": {
-      "title": "בית משפחתי מאבן בירושלים"
-    },
-    "haifaCarmelViewLoft": {
-      "title": "לופט מעוצב עם נוף לכרמל בחיפה"
-    },
-    "netanyaBeachfrontSuite": {
-      "title": "סוויטת פנורמה על קו החוף בנתניה"
-    },
-    "raananaGardenDuplex": {
-      "title": "דופלקס גן יוקרתי ברעננה"
-    }
+  "listingPage": {
+    "rooms": "חדרים",
+    "bathrooms": "חדרי רחצה",
+    "sqm": "מ\"ר",
+    "features": "מאפיינים",
+    "agent": "הסוכן המטפל",
+    "whatsapp": "וואטסאפ",
+    "call": "שיחה",
+    "tourTitle": "גלו ב-360°",
+    "tourDescription": "חוו את הנכס בסיור וירטואלי אימרסיבי.",
+    "tourCta": "התחלת סיור 360",
+    "related": "נכסים דומים"
   }
 }
