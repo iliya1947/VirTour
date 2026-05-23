@@ -33,6 +33,10 @@ export const herzliyaSeaView: Listing = {
   coordinates: { lat: 32.1612, lng: 34.7922 },
   badges: ['VERIFIED_AGENT', 'TOUR_360', 'LISTED_TODAY'],
   discoveryTags: ['RECENTLY_ADDED', 'TRENDING'],
+  viewsToday: 19,
+  totalViews: 241,
+  savedCount: 34,
+  responseTime: 'within 1 hour',
   translations: {
     he: {
       title: 'דירת יוקרה עם נוף לים במרינה הרצליה',

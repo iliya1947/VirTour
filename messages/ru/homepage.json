@@ -21,11 +21,24 @@
     "browseByCityTitle": "Поиск по городу",
     "tourTitle": "Изучайте объекты в 360°",
     "tourDescription": "Пройдитесь по каждой комнате, оцените детали и уверенно отберите объекты до личного визита.",
-    "tourButton": "Начать демо-тур"
+    "tourButton": "Начать демо-тур",
+    "collectionsTitle": "Кураторские коллекции",
+    "trendingNow": "Сейчас в тренде",
+    "recentlyAdded": "Недавно добавлено",
+    "curatedHomes": "кураторских объектов",
+    "activeListings": "активных объявлений"
   },
   "features": {
     "verifiedAgents": "Проверенные агенты",
     "secureCommunication": "Безопасная связь",
     "immersiveViewing": "Иммерсивный просмотр"
+  },
+  "collections": {
+    "SEA_VIEW": "Объекты с видом на море",
+    "LUXURY": "Коллекция люкс",
+    "INVESTMENT": "Инвестиционные возможности",
+    "FAMILY": "Семейные дома",
+    "URBAN": "Городской стиль",
+    "TEL_AVIV_PREMIUM": "Премиум Тель-Авив"
   }
 }

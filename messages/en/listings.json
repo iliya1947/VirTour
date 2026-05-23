@@ -36,5 +36,11 @@
     "tourDescription": "Experience this property in an immersive virtual walkthrough.",
     "tourCta": "Start 360 Tour",
     "related": "Related Properties"
+  },
+  "activity": {
+    "listedAgo": "Listed {days} days ago",
+    "viewedToday": "{count} people viewed this today",
+    "savedBy": "Saved by {count} buyers",
+    "agentResponds": "Agent responds {speed}"
   }
 }

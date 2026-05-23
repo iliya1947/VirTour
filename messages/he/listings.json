@@ -36,5 +36,11 @@
     "tourDescription": "חוו את הנכס בסיור וירטואלי אימרסיבי.",
     "tourCta": "התחלת סיור 360",
     "related": "נכסים דומים"
+  },
+  "activity": {
+    "listedAgo": "פורסם לפני {days} ימים",
+    "viewedToday": "{count} אנשים צפו בזה היום",
+    "savedBy": "נשמר אצל {count} משתמשים",
+    "agentResponds": "הסוכן מגיב {speed}"
   }
 }
