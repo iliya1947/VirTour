@@ -12,5 +12,10 @@
     "luxury": "Luxury",
     "tour360": "360 Available"
   },
-  "preview": { "cta": "Open Listing" }
+  "preview": { "cta": "Open Listing" },
+  "activity": {
+    "popular": "Popular this week",
+    "viewed": "12 people viewed today",
+    "recent": "Recently added"
+  }
 }
