@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { getI18n, isRtl, Locale, locales } from '@/lib/i18n';
+import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
+import { getI18n, isRtl, Locale } from '@/lib/i18n';
 
 type Props = { locale: Locale };
 
@@ -34,17 +35,7 @@ export function AppHeader({ locale }: Props) {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <div className="glass flex rounded-full p-1 text-xs" aria-label={t('common', 'localeLabel')}>
-            {locales.map((lang) => (
-              <Link
-                key={lang}
-                href={`/${lang}`}
-                className={`rounded-full px-3 py-1 uppercase ${locale === lang ? 'bg-white/25 text-white' : 'text-white/70'}`}
-              >
-                {lang}
-              </Link>
-            ))}
-          </div>
+          <LocaleSwitcher locale={locale} />
           <a
             href="https://wa.me/972500000000"
             className="rounded-full bg-emerald-500/90 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-400"
@@ -74,13 +65,7 @@ export function AppHeader({ locale }: Props) {
             ))}
           </nav>
           <div className="mt-3 flex items-center justify-between gap-2">
-            <div className="glass flex rounded-full p-1 text-xs" aria-label={t('common', 'localeLabel')}>
-              {locales.map((lang) => (
-                <Link key={lang} href={`/${lang}`} className={`rounded-full px-3 py-1 uppercase ${locale === lang ? 'bg-white/25 text-white' : 'text-white/70'}`}>
-                  {lang}
-                </Link>
-              ))}
-            </div>
+            <LocaleSwitcher locale={locale} />
             <a href="https://wa.me/972500000000" className="rounded-full bg-emerald-500/90 px-4 py-2 text-xs font-semibold text-white">
               {t('common', 'whatsappLabel')}
             </a>
