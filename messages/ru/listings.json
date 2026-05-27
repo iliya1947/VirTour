@@ -48,6 +48,9 @@
     "rooms": "Комнаты",
     "fullscreen": "Полный экран",
     "minimap": "Мини-карта",
-    "loading": "Загрузка тура..."
+    "loading": "Загрузка тура...",
+    "startTour": "Начать тур",
+    "continueTo": "Перейти в",
+    "roomProgress": "Прогресс"
   }
 }
