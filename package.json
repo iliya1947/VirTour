@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@photo-sphere-viewer/core": "^5.14.1",
     "next": "14.2.33",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-photo-sphere-viewer": "^6.2.3"
   },
   "devDependencies": {
     "@types/node": "20.14.9",

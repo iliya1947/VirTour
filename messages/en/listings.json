@@ -42,5 +42,12 @@
     "viewedToday": "{count} people viewed this today",
     "savedBy": "Saved by {count} buyers",
     "agentResponds": "Agent responds {speed}"
+  },
+  "tourViewer": {
+    "backToListing": "Back to listing",
+    "rooms": "Rooms",
+    "fullscreen": "Fullscreen",
+    "minimap": "Minimap",
+    "loading": "Loading immersive tour..."
   }
 }

@@ -42,5 +42,12 @@
     "viewedToday": "Сегодня просмотрели: {count}",
     "savedBy": "Сохранили {count} пользователей",
     "agentResponds": "Агент отвечает {speed}"
+  },
+  "tourViewer": {
+    "backToListing": "Назад к объекту",
+    "rooms": "Комнаты",
+    "fullscreen": "Полный экран",
+    "minimap": "Мини-карта",
+    "loading": "Загрузка тура..."
   }
 }

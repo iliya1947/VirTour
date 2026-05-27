@@ -42,5 +42,12 @@
     "viewedToday": "{count} אנשים צפו בזה היום",
     "savedBy": "נשמר אצל {count} משתמשים",
     "agentResponds": "הסוכן מגיב {speed}"
+  },
+  "tourViewer": {
+    "backToListing": "חזרה לנכס",
+    "rooms": "חדרים",
+    "fullscreen": "מסך מלא",
+    "minimap": "מיני-מפה",
+    "loading": "טוען סיור..."
   }
 }

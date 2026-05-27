@@ -33,7 +33,7 @@ export default function ListingPage({ params }: Props) {
             <p className="max-w-xl text-base text-white/85 sm:text-lg">{t('listings', 'listingPage.tourDescription')}</p>
           </div>
           <Link
-            href={`/${locale}/discover`}
+            href={`/${locale}/tour/${item.slug}`}
             className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-cyan-200/50 bg-cyan-300/90 px-8 text-base font-semibold text-slate-950 shadow-[0_10px_35px_rgba(34,211,238,0.5)] transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-200 hover:shadow-[0_16px_45px_rgba(34,211,238,0.55)]"
           >
             {t('listings', 'listingPage.tourCta')}
