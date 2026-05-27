@@ -25,7 +25,10 @@ export default function TourPage({ params }: Props) {
           rooms: t('listings', 'tourViewer.rooms'),
           fullscreen: t('listings', 'tourViewer.fullscreen'),
           minimap: t('listings', 'tourViewer.minimap'),
-          loading: t('listings', 'tourViewer.loading')
+          loading: t('listings', 'tourViewer.loading'),
+          startTour: t('listings', 'tourViewer.startTour'),
+          continueTo: t('listings', 'tourViewer.continueTo'),
+          roomProgress: t('listings', 'tourViewer.roomProgress')
         }}
       />
     </main>

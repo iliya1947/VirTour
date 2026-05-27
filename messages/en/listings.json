@@ -48,6 +48,9 @@
     "rooms": "Rooms",
     "fullscreen": "Fullscreen",
     "minimap": "Minimap",
-    "loading": "Loading immersive tour..."
+    "loading": "Loading immersive tour...",
+    "startTour": "Start Tour",
+    "continueTo": "Continue to",
+    "roomProgress": "Progress"
   }
 }
