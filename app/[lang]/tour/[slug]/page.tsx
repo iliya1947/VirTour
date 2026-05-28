@@ -38,7 +38,12 @@ export default function TourPage({ params }: Props) {
           floorplan: t('listings', 'tourViewer.floorplan'),
           youAreHere: t('listings', 'tourViewer.youAreHere'),
           spatialPath: t('listings', 'tourViewer.spatialPath'),
-          entering: t('listings', 'tourViewer.entering')
+          entering: t('listings', 'tourViewer.entering'),
+          directionAhead: t('listings', 'tourViewer.directionAhead'),
+          directionLeft: t('listings', 'tourViewer.directionLeft'),
+          directionRight: t('listings', 'tourViewer.directionRight'),
+          directionAheadLeft: t('listings', 'tourViewer.directionAheadLeft'),
+          directionAheadRight: t('listings', 'tourViewer.directionAheadRight')
         }}
       />
     </main>

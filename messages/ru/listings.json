@@ -61,6 +61,11 @@
     "floorplan": "Пространственная карта",
     "youAreHere": "Вы здесь",
     "spatialPath": "Ориентир",
-    "entering": "Входим в"
+    "entering": "Входим в",
+    "directionAhead": "Вперед",
+    "directionLeft": "Налево",
+    "directionRight": "Направо",
+    "directionAheadLeft": "Вперед налево",
+    "directionAheadRight": "Вперед направо"
   }
 }

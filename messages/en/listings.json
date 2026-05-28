@@ -61,6 +61,11 @@
     "floorplan": "Spatial map",
     "youAreHere": "You are here",
     "spatialPath": "Orientation cue",
-    "entering": "Entering"
+    "entering": "Entering",
+    "directionAhead": "Ahead",
+    "directionLeft": "Left",
+    "directionRight": "Right",
+    "directionAheadLeft": "Ahead left",
+    "directionAheadRight": "Ahead right"
   }
 }
