@@ -61,6 +61,11 @@
     "floorplan": "מפה מרחבית",
     "youAreHere": "אתם כאן",
     "spatialPath": "רמז התמצאות",
-    "entering": "נכנסים אל"
+    "entering": "נכנסים אל",
+    "directionAhead": "קדימה",
+    "directionLeft": "שמאלה",
+    "directionRight": "ימינה",
+    "directionAheadLeft": "קדימה שמאלה",
+    "directionAheadRight": "קדימה ימינה"
   }
 }
