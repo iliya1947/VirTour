@@ -51,6 +51,16 @@
     "loading": "Loading immersive tour...",
     "startTour": "Start Tour",
     "continueTo": "Continue to",
-    "roomProgress": "Progress"
+    "roomProgress": "Progress",
+    "guidedEyebrow": "Guided walkthrough",
+    "guidedTitle": "Step into the home",
+    "guidedDescription": "Follow a cinematic room-by-room path, pause where the light changes, and use the glowing markers to move naturally through the property.",
+    "startImmersiveWalkthrough": "Start immersive walkthrough",
+    "lookAround": "Drag to look around",
+    "tapHotspots": "Tap glowing paths",
+    "floorplan": "Spatial map",
+    "youAreHere": "You are here",
+    "spatialPath": "Orientation cue",
+    "entering": "Entering"
   }
 }

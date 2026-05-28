@@ -51,6 +51,16 @@
     "loading": "טוען סיור...",
     "startTour": "התחילו את הסיור",
     "continueTo": "להמשיך אל",
-    "roomProgress": "התקדמות"
+    "roomProgress": "התקדמות",
+    "guidedEyebrow": "סיור מודרך",
+    "guidedTitle": "היכנסו אל הבית",
+    "guidedDescription": "עברו במסלול קולנועי מחדר לחדר, עצרו במקום שבו האור משתנה והשתמשו בסימונים הזוהרים כדי לנוע בטבעיות בנכס.",
+    "startImmersiveWalkthrough": "התחלת סיור אימרסיבי",
+    "lookAround": "גררו כדי להביט סביב",
+    "tapHotspots": "הקישו על נתיבים זוהרים",
+    "floorplan": "מפה מרחבית",
+    "youAreHere": "אתם כאן",
+    "spatialPath": "רמז התמצאות",
+    "entering": "נכנסים אל"
   }
 }

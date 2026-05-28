@@ -28,7 +28,17 @@ export default function TourPage({ params }: Props) {
           loading: t('listings', 'tourViewer.loading'),
           startTour: t('listings', 'tourViewer.startTour'),
           continueTo: t('listings', 'tourViewer.continueTo'),
-          roomProgress: t('listings', 'tourViewer.roomProgress')
+          roomProgress: t('listings', 'tourViewer.roomProgress'),
+          guidedEyebrow: t('listings', 'tourViewer.guidedEyebrow'),
+          guidedTitle: t('listings', 'tourViewer.guidedTitle'),
+          guidedDescription: t('listings', 'tourViewer.guidedDescription'),
+          startImmersiveWalkthrough: t('listings', 'tourViewer.startImmersiveWalkthrough'),
+          lookAround: t('listings', 'tourViewer.lookAround'),
+          tapHotspots: t('listings', 'tourViewer.tapHotspots'),
+          floorplan: t('listings', 'tourViewer.floorplan'),
+          youAreHere: t('listings', 'tourViewer.youAreHere'),
+          spatialPath: t('listings', 'tourViewer.spatialPath'),
+          entering: t('listings', 'tourViewer.entering')
         }}
       />
     </main>
