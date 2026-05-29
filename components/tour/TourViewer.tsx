@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ReactPhotoSphereViewer } from 'react-photo-sphere-viewer';
 import Link from 'next/link';
 import type { ListingTour, TourHotspot } from '@/data/tours/types';
@@ -40,6 +40,9 @@ const transitionDelayMs = 420;
 const transitionSettleMs = 520;
 const minimapCenter = { x: 50, y: 54 };
 
+type TourRoom = ListingTour['rooms'][number];
+type DirectionLabelKey = 'directionAhead' | 'directionLeft' | 'directionRight' | 'directionAheadLeft' | 'directionAheadRight';
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
@@ -60,7 +63,7 @@ function getHotspotPosition(hotspot: TourHotspot, roomYaw = 0) {
   };
 }
 
-function getDirectionKey(yawOffset: number) {
+function getDirectionKey(yawOffset: number): DirectionLabelKey {
   if (yawOffset < -55) return 'directionLeft';
   if (yawOffset > 55) return 'directionRight';
   if (Math.abs(yawOffset) < 18) return 'directionAhead';
@@ -83,48 +86,89 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
   const [transitionTargetName, setTransitionTargetName] = useState<string | null>(null);
   const [movementVector, setMovementVector] = useState({ x: 0, y: 0 });
 
-  const room = useMemo(() => tour.rooms.find((item) => item.id === activeRoomId) ?? tour.rooms[0], [activeRoomId, tour.rooms]);
+  const roomChangeTimer = useRef<number | null>(null);
+  const transitionSettleTimer = useRef<number | null>(null);
+
+  const roomById = useMemo(() => new Map(tour.rooms.map((item) => [item.id, item])), [tour.rooms]);
+
+  const room = useMemo(() => roomById.get(activeRoomId) ?? tour.rooms[0], [activeRoomId, roomById, tour.rooms]);
   const activeRoomIndex = useMemo(() => Math.max(tour.rooms.findIndex((item) => item.id === room.id), 0), [room.id, tour.rooms]);
   const nextRoom = tour.rooms[(activeRoomIndex + 1) % tour.rooms.length];
   const primaryHotspot = room.hotspots[0];
-  const primaryTarget = primaryHotspot ? tour.rooms.find((item) => item.id === primaryHotspot.targetRoomId) : nextRoom;
+  const primaryTarget = primaryHotspot ? roomById.get(primaryHotspot.targetRoomId) : nextRoom;
+
+  useEffect(() => {
+    return () => {
+      if (roomChangeTimer.current) window.clearTimeout(roomChangeTimer.current);
+      if (transitionSettleTimer.current) window.clearTimeout(transitionSettleTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
     setIsTransitioning(true);
   }, [room.id]);
 
-  const transitionToRoom = (targetRoomId: string, targetName?: string) => {
+  const transitionToRoom = useCallback((targetRoomId: string, targetName?: string) => {
     if (targetRoomId === room.id || isTransitioning) return;
     setShowGuide(false);
-    const targetRoom = tour.rooms.find((item) => item.id === targetRoomId);
+    const targetRoom = roomById.get(targetRoomId);
     setTransitionTargetName(targetName ?? targetRoom?.name ?? null);
     setMovementVector(getRoomVector(room, targetRoom));
     setIsTransitioning(true);
-    window.setTimeout(() => setActiveRoomId(targetRoomId), transitionDelayMs);
-  };
+    if (roomChangeTimer.current) window.clearTimeout(roomChangeTimer.current);
+    roomChangeTimer.current = window.setTimeout(() => setActiveRoomId(targetRoomId), transitionDelayMs);
+  }, [isTransitioning, room, roomById]);
 
-  const startWalkthrough = () => {
+  const startWalkthrough = useCallback(() => {
     setShowGuide(false);
     const target = primaryTarget ?? nextRoom;
     if (target && target.id !== room.id) {
       transitionToRoom(target.id, target.name);
     }
-  };
+  }, [nextRoom, primaryTarget, room.id, transitionToRoom]);
+
+  const handleViewerReady = useCallback(() => {
+    setLoading(false);
+    if (transitionSettleTimer.current) window.clearTimeout(transitionSettleTimer.current);
+    transitionSettleTimer.current = window.setTimeout(() => {
+      setIsTransitioning(false);
+      setTransitionTargetName(null);
+    }, transitionSettleMs);
+  }, []);
+
+  const requestFullscreen = useCallback(() => {
+    document.documentElement.requestFullscreen();
+  }, []);
 
   const guideLabel = activeRoomIndex === 0 ? labels.startImmersiveWalkthrough : `${labels.continueTo} ${primaryTarget?.name ?? nextRoom.name}`;
   const transitionLabel = transitionTargetName ? `${labels.entering} ${transitionTargetName}` : labels.loading;
-  const visitedRooms = new Set(tour.rooms.slice(0, activeRoomIndex + 1).map((item) => item.id));
-  const activeConnections = new Set(room.hotspots.map((spot) => spot.targetRoomId));
+  const visitedRooms = useMemo(() => new Set(tour.rooms.slice(0, activeRoomIndex + 1).map((item) => item.id)), [activeRoomIndex, tour.rooms]);
+  const activeConnections = useMemo(() => new Set(room.hotspots.map((spot) => spot.targetRoomId)), [room.hotspots]);
+  const minimapPathPoints = useMemo(() => tour.rooms.map((item) => `${item.minimapPosition.x},${item.minimapPosition.y}`).join(' '), [tour.rooms]);
   const compassHeading = normalizeAngle(room.initialYaw ?? 0);
   const viewerTransform = isTransitioning
     ? `translate3d(${movementVector.x * -26}px, ${movementVector.y * -20}px, 0) scale(1.045)`
     : 'translate3d(0, 0, 0) scale(1)';
+  const hotspotItems = useMemo(
+    () => room.hotspots.map((spot, idx) => {
+      const position = getHotspotPosition(spot, room.initialYaw);
+
+      return {
+        spot,
+        position,
+        directionLabel: labels[getDirectionKey(position.yawOffset)],
+        isPrimary: idx === 0,
+        targetName: roomById.get(spot.targetRoomId)?.name
+      };
+    }),
+    [labels, room.hotspots, room.initialYaw, roomById]
+  );
 
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'} className="relative h-[100dvh] w-full overflow-hidden bg-slate-950 text-white">
       <div className="pointer-events-none absolute inset-0 z-[11] bg-[radial-gradient(circle_at_50%_45%,transparent_18%,rgba(2,6,23,0.28)_58%,rgba(2,6,23,0.78)_100%)]" />
-      <div className="pointer-events-none absolute inset-0 z-[12] bg-[linear-gradient(115deg,rgba(8,47,73,0.48),transparent_34%,rgba(15,23,42,0.72)_100%)] mix-blend-screen" />
+      <div className="pointer-events-none absolute inset-0 z-[12] hidden bg-[linear-gradient(115deg,rgba(8,47,73,0.48),transparent_34%,rgba(15,23,42,0.72)_100%)] mix-blend-screen sm:block" />
       <div className="pointer-events-none absolute inset-x-0 top-0 z-[13] h-40 bg-gradient-to-b from-black/60 via-black/20 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[13] h-64 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
       <div className="pointer-events-none absolute inset-0 z-[14] opacity-[0.12] [background-image:radial-gradient(circle_at_20%_20%,white_0_1px,transparent_1px)] [background-size:34px_34px]" />
@@ -145,7 +189,7 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
         />
         <div className="flex h-full flex-col items-center justify-center gap-4 px-6 text-center">
           <div className="relative h-14 w-14">
-            <span className="absolute inset-0 animate-ping rounded-full border border-cyan-100/40" />
+            <span className="absolute inset-0 rounded-full border border-cyan-100/40 motion-safe:animate-ping" />
             <span className="absolute inset-2 animate-spin rounded-full border-2 border-white/20 border-t-cyan-200" />
             <span className="absolute inset-[1.35rem] rounded-full bg-cyan-200 shadow-[0_0_28px_rgba(103,232,249,0.8)]" />
           </div>
@@ -154,49 +198,29 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
       </div>
 
       <div
-        className={`h-full w-full transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isTransitioning ? 'blur-[1px] brightness-75 saturate-75' : 'blur-0 brightness-100 saturate-100'
+        className={`h-full w-full transform-gpu will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isTransitioning ? 'brightness-75 saturate-75 sm:blur-[1px]' : 'brightness-100 saturate-100 sm:blur-0'
         }`}
         style={{ transform: viewerTransform }}
       >
-        <ReactPhotoSphereViewer
-          key={room.id}
-          src={room.panorama}
-          width="100%"
-          height="100%"
-          defaultYaw={room.initialYaw ?? 0}
-          defaultPitch={room.initialPitch ?? 0}
-          navbar={false}
-          touchmoveTwoFingers
-          loadingTxt={labels.loading}
-          onReady={() => {
-            setLoading(false);
-            window.setTimeout(() => {
-              setIsTransitioning(false);
-              setTransitionTargetName(null);
-            }, transitionSettleMs);
-          }}
-        />
+        <PanoramaViewer room={room} loadingLabel={labels.loading} onReady={handleViewerReady} />
       </div>
 
-      {room.hotspots.map((spot, idx) => {
-        const position = getHotspotPosition(spot, room.initialYaw);
-
-        return (
-          <HotspotButton
-            key={`${room.id}-${spot.targetRoomId}`}
-            hotspot={spot}
-            position={position}
-            directionLabel={labels[getDirectionKey(position.yawOffset)]}
-            isPrimary={idx === 0}
-            disabled={isTransitioning}
-            onSelect={() => transitionToRoom(spot.targetRoomId, tour.rooms.find((item) => item.id === spot.targetRoomId)?.name)}
-          />
-        );
-      })}
+      {hotspotItems.map(({ spot, position, directionLabel, isPrimary, targetName }) => (
+        <HotspotButton
+          key={`${room.id}-${spot.targetRoomId}`}
+          hotspot={spot}
+          position={position}
+          directionLabel={directionLabel}
+          isPrimary={isPrimary}
+          disabled={isTransitioning}
+          targetName={targetName}
+          onSelect={transitionToRoom}
+        />
+      ))}
 
       <div className="pointer-events-none absolute inset-x-0 top-0 z-30 p-3 sm:p-6">
-        <div className="pointer-events-auto flex items-center justify-between gap-3 rounded-2xl border border-white/15 bg-slate-950/35 p-2.5 shadow-2xl shadow-black/25 backdrop-blur-2xl sm:p-3">
+        <div className="pointer-events-auto flex items-center justify-between gap-3 rounded-2xl border border-white/15 bg-slate-950/55 p-2.5 shadow-2xl shadow-black/25 backdrop-blur-md sm:bg-slate-950/35 sm:p-3 sm:backdrop-blur-2xl">
           <Link href={`/${locale}${tour.backListingPath}`} className="rounded-xl bg-white/10 px-3 py-2 text-xs font-medium transition hover:bg-white/20 sm:text-sm">
             {isRtl ? '' : '← '}{labels.backToListing}{isRtl ? ' ←' : ''}
           </Link>
@@ -204,7 +228,7 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
             <p className="truncate text-xs uppercase tracking-[0.24em] text-cyan-100/75">{tour.propertyLabel}</p>
             <p className="truncate text-sm text-white/80">{room.story}</p>
           </div>
-          <button onClick={() => document.documentElement.requestFullscreen()} className="rounded-xl bg-white/10 px-3 py-2 text-xs font-medium transition hover:bg-white/20 sm:text-sm">
+          <button onClick={requestFullscreen} className="rounded-xl bg-white/10 px-3 py-2 text-xs font-medium transition hover:bg-white/20 sm:text-sm">
             {labels.fullscreen}
           </button>
         </div>
@@ -213,7 +237,7 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
 
 
       <div className="pointer-events-none absolute left-1/2 top-24 z-30 hidden w-[min(28rem,calc(100%-2rem))] -translate-x-1/2 sm:block">
-        <div className="rounded-full border border-white/10 bg-slate-950/35 px-4 py-2 shadow-2xl shadow-black/20 backdrop-blur-2xl">
+        <div className="rounded-full border border-white/10 bg-slate-950/35 px-4 py-2 shadow-2xl shadow-black/20 backdrop-blur-xl">
           <div className="relative h-8 overflow-hidden rounded-full bg-white/5">
             <div
               className="absolute top-1/2 flex w-[36rem] -translate-y-1/2 items-center justify-around text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45 transition-transform duration-700"
@@ -231,7 +255,7 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
 
       {showGuide && !loading && !isTransitioning && (
         <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center px-5">
-          <div className="pointer-events-auto max-w-md rounded-[2rem] border border-white/20 bg-slate-950/55 p-5 text-center shadow-[0_24px_90px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:p-7">
+          <div className="pointer-events-auto max-w-md rounded-[2rem] border border-white/20 bg-slate-950/70 p-5 text-center shadow-[0_24px_90px_rgba(0,0,0,0.5)] backdrop-blur-md sm:bg-slate-950/55 sm:p-7 sm:backdrop-blur-2xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/80">{labels.guidedEyebrow}</p>
             <h1 className="text-2xl font-semibold tracking-tight sm:text-4xl">{labels.guidedTitle}</h1>
             <p className="mt-3 text-sm leading-6 text-white/72">{labels.guidedDescription}</p>
@@ -251,13 +275,13 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 p-3 sm:p-6">
         <div className="grid gap-3 lg:grid-cols-[1fr_280px]">
-          <div className="pointer-events-auto rounded-[1.6rem] border border-white/15 bg-slate-950/45 p-3 shadow-2xl shadow-black/30 backdrop-blur-2xl sm:p-4">
+          <div className="pointer-events-auto rounded-[1.6rem] border border-white/15 bg-slate-950/65 p-3 shadow-2xl shadow-black/30 backdrop-blur-md sm:bg-slate-950/45 sm:p-4 sm:backdrop-blur-2xl">
             <div className="mb-3 flex items-center justify-between gap-3">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.22em] text-white/55">{labels.rooms}</p>
                 <p className="flex items-center gap-2 text-sm font-medium text-white/90 sm:text-base">
                   <span className="relative flex h-2.5 w-2.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-200 opacity-60" />
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-cyan-200 opacity-60 motion-safe:animate-ping" />
                     <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-cyan-100" />
                   </span>
                   {room.name}
@@ -307,7 +331,7 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
             </div>
           </div>
 
-          <div className="pointer-events-auto hidden rounded-[1.6rem] border border-white/15 bg-slate-950/40 p-3 shadow-2xl shadow-black/25 backdrop-blur-2xl sm:block">
+          <div className="pointer-events-auto hidden rounded-[1.6rem] border border-white/15 bg-slate-950/40 p-3 shadow-2xl shadow-black/25 backdrop-blur-xl sm:block">
             <div className="mb-2 flex items-center justify-between gap-2">
               <p className="text-[10px] uppercase tracking-[0.22em] text-white/55">{labels.floorplan}</p>
               <span className="text-[10px] text-cyan-100/75">{labels.youAreHere}</span>
@@ -318,14 +342,14 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
               <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                 <path d="M10 76 C26 64 35 64 49 59 S68 53 76 36" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="8" strokeLinecap="round" />
                 <polyline
-                  points={tour.rooms.map((item) => `${item.minimapPosition.x},${item.minimapPosition.y}`).join(' ')}
+                  points={minimapPathPoints}
                   fill="none"
                   stroke="rgba(165,243,252,0.26)"
                   strokeWidth="1.2"
                   strokeDasharray="3 3"
                 />
                 {room.hotspots.map((spot) => {
-                  const target = tour.rooms.find((item) => item.id === spot.targetRoomId);
+                  const target = roomById.get(spot.targetRoomId);
                   if (!target) return null;
 
                   return (
@@ -371,12 +395,38 @@ export function TourViewer({ tour, locale, isRtl, labels }: TourViewerProps) {
   );
 }
 
-function HotspotButton({
+const PanoramaViewer = memo(function PanoramaViewer({
+  room,
+  loadingLabel,
+  onReady
+}: {
+  room: TourRoom;
+  loadingLabel: string;
+  onReady: () => void;
+}) {
+  return (
+    <ReactPhotoSphereViewer
+      key={room.id}
+      src={room.panorama}
+      width="100%"
+      height="100%"
+      defaultYaw={room.initialYaw ?? 0}
+      defaultPitch={room.initialPitch ?? 0}
+      navbar={false}
+      touchmoveTwoFingers
+      loadingTxt={loadingLabel}
+      onReady={onReady}
+    />
+  );
+});
+
+const HotspotButton = memo(function HotspotButton({
   hotspot,
   position,
   directionLabel,
   isPrimary,
   disabled,
+  targetName,
   onSelect
 }: {
   hotspot: TourHotspot;
@@ -384,31 +434,36 @@ function HotspotButton({
   directionLabel: string;
   isPrimary: boolean;
   disabled: boolean;
-  onSelect: () => void;
+  targetName?: string;
+  onSelect: (targetRoomId: string, targetName?: string) => void;
 }) {
+  const handleSelect = useCallback(() => {
+    onSelect(hotspot.targetRoomId, targetName);
+  }, [hotspot.targetRoomId, onSelect, targetName]);
+
   return (
     <button
-      onClick={onSelect}
+      onClick={handleSelect}
       disabled={disabled}
-      className="group absolute z-30 -translate-x-1/2 -translate-y-1/2 disabled:cursor-wait disabled:opacity-70"
+      className="group absolute z-30 -translate-x-1/2 -translate-y-1/2 transform-gpu disabled:cursor-wait disabled:opacity-70"
       style={{ top: position.top, left: position.left }}
       aria-label={hotspot.actionLabel ?? hotspot.label}
     >
       <span className="absolute left-1/2 top-full h-16 w-px -translate-x-1/2 bg-gradient-to-b from-cyan-100/45 to-transparent" />
-      <span className="absolute -bottom-16 left-1/2 h-8 w-20 -translate-x-1/2 rounded-[50%] border border-cyan-100/20 bg-cyan-200/10 blur-[1px]" />
-      <span className="absolute -inset-6 -z-20 rounded-full bg-cyan-300/10 opacity-80 blur-2xl transition duration-500 group-hover:scale-125 group-hover:bg-cyan-200/25" />
-      <span className="absolute -inset-3 -z-10 animate-ping rounded-full border border-cyan-200/25" />
+      <span className="absolute -bottom-16 left-1/2 h-8 w-20 -translate-x-1/2 rounded-[50%] border border-cyan-100/20 bg-cyan-200/10 sm:blur-[1px]" />
+      <span className="absolute -inset-6 -z-20 rounded-full bg-cyan-300/10 opacity-80 blur-xl transition duration-500 sm:blur-2xl motion-safe:group-hover:scale-125 motion-safe:group-hover:bg-cyan-200/25" />
+      <span className="absolute -inset-3 -z-10 rounded-full border border-cyan-200/25 motion-safe:animate-ping" />
       <span className={`absolute -inset-1 -z-10 rounded-full bg-cyan-300/20 blur-md transition group-hover:bg-cyan-100/40 ${isPrimary ? 'opacity-100' : 'opacity-70'}`} />
-      <span className="flex items-center gap-2 rounded-full border border-cyan-100/70 bg-slate-950/55 px-3.5 py-2 text-xs font-semibold text-cyan-50 shadow-[0_12px_34px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-105 group-hover:border-white group-hover:bg-slate-950/80 group-hover:shadow-[0_0_48px_rgba(34,211,238,0.45)] group-active:scale-95 sm:text-sm">
+      <span className="flex items-center gap-2 rounded-full border border-cyan-100/70 bg-slate-950/55 px-3.5 py-2 text-xs font-semibold text-cyan-50 shadow-[0_12px_34px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-300 ease-out will-change-transform sm:backdrop-blur-2xl motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:scale-105 group-hover:border-white group-hover:bg-slate-950/80 group-hover:shadow-[0_0_48px_rgba(34,211,238,0.45)] group-active:scale-95 sm:text-sm">
         <span className="relative h-3 w-3 rounded-full bg-cyan-200 shadow-[0_0_18px_rgba(103,232,249,0.9)]">
-          <span className="absolute inset-0 animate-ping rounded-full bg-cyan-200/60" />
+          <span className="absolute inset-0 rounded-full bg-cyan-200/60 motion-safe:animate-ping" />
         </span>
         <span className="flex flex-col items-start leading-tight">
           <span>{hotspot.actionLabel ?? hotspot.label}</span>
           <span className="text-[10px] font-normal uppercase tracking-[0.14em] text-cyan-100/65">{directionLabel} · {hotspot.label}</span>
         </span>
-        <span className="text-cyan-100/80 transition group-hover:translate-x-0.5">→</span>
+        <span className="text-cyan-100/80 transition motion-safe:group-hover:translate-x-0.5">→</span>
       </span>
     </button>
   );
-}
+});
